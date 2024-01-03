@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'plum'
   },
   box: {
-    width: windowWidth > "500%" ? "70%" : "90%",
-    height: windowHeight > "600%" ? "60%" : "90%",
+    width: windowWidth > 500 ? "70%" : "90%",
+    height: windowHeight > 600 ? "60%" : "90%",
     backgroundColor: '#8e9b00',
     justifyContent: 'center',
     alignItems: 'center',
