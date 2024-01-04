@@ -1,57 +1,50 @@
 import React from 'react';
-import {  useEffect, useState } from 'react';
-import {  View, StyleSheet, Text, Dimensions  } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, Platform } from 'react-native';
+import CustomButton from './Buttony/CustomButton/';
 
+export default function App() {
+  const title = 'Hello, World!';
 
-
-export default function App() { 
-  const [dimensions, setDimensions] = useState(Dimensions.get('window'));
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ window }) => {
-      setDimensions(window);
-    });
-    return () => subscription?.remove();
-  });
-
-  const {window} = dimensions;
-  const windowWidth = window.width;
-  const windowHeight = window.height;
-
-  rreturn (
-    <View style={styles.container}>
-      <View style={[
-          styles.box,
-          { width: windowWidth > 500 ? "70%" : "90%" },
-          { height: windowHeight > 600 ? "60%" : "90%" }
-        ]}
-      >
-        <Text style={{ fontSize: windowWidth > 500 ? "50%" : "34%" }}>Hello World!</Text>
+  return (
+    <SafeAreaView style={styles.safeContainer}>
+      <View style={styles.container}>
+        <View style={styles.box}>
+          <Text style={styles.text}>{title}</Text>
+          <CustomButton title='Press' onPress={() => alert('Witaj')}  />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
-  
 }
-// windowWidth = Dimensions.get('window').width;
-// windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
   container: {
-    flex: 1,    
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'plum'
   },
   box: {
-    // width: windowWidth > 500 ? "70%" : "90%",
-    // height: windowHeight > 600 ? "60%" : "90%",
-    backgroundColor: '#8e9b00',
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
-   text: {
-    // fontSize: windowWidth > "500%" ? 50 : 34,
-    fontWeight: 'bold',
+  text: {
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Arial',
+        fontSize: 50,
+        color: 'blue',
+      },
+      android: {
+        fontFamily: 'monospace',
+        fontSize: 24,
+        color: 'green',
+      },
+    }),
     textAlign: 'center',
-   }
+    marginBottom: 20,
+  },
 });
